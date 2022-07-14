@@ -114,6 +114,37 @@ class User
         return false;
     }
 
+    public function register()
+    {
+        $query = 'INSERT INTO ' . $this->table . ' 
+        SET
+            Email = :Email,
+            HoTen = :HoTen,
+            MaRole = :MaRole,
+            MatKhau = :MatKhau,
+            SDT = :SDT';
+        $stmt = $this->conn->prepare($query);
+
+        $this->Email = htmlspecialchars(strip_tags($this->Email));
+        $this->HoTen = htmlspecialchars(strip_tags($this->HoTen));
+        $this->MaRole = htmlspecialchars(strip_tags($this->MaRole));
+        $this->MatKhau = htmlspecialchars(strip_tags($this->MatKhau));
+        $this->SDT = htmlspecialchars(strip_tags($this->SDT));
+
+        $stmt->bindParam(':Email', $this->Email);
+        $stmt->bindParam(':HoTen', $this->HoTen);
+        $stmt->bindParam(':MaRole', $this->MaRole);
+        $stmt->bindParam(':MatKhau', $this->MatKhau);
+        $stmt->bindParam(':SDT', $this->SDT);
+        if ($stmt->execute()) {
+            return true;
+        }
+
+        printf("Error: %s.\n", $stmt->error);
+
+        return false;
+    }
+
     public function update()
     {
         $query = 'UPDATE ' . $this->table . ' 
@@ -187,5 +218,32 @@ class User
 
         printf("Error: %s.\n", $stmt->error);
         return false;
+    }
+
+    public function getByEmail()
+    {
+        $query = 'SELECT * FROM ' . $this->table . ' WHERE Email = ? LIMIT 0,1';
+
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(1, $this->Email);
+
+        $stmt->execute();
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $this->AnhChanDung = $row['AnhChanDung'];
+        $this->DiaChiTamTru = $row['DiaChiTamTru'];
+        $this->DiaChiThuongTru = $row['DiaChiThuongTru'];
+        $this->Email = $row['Email'];
+        $this->GioiTinh = $row['GioiTinh'];
+        $this->HoTen = $row['HoTen'];
+        $this->MaRole = $row['MaRole'];
+        $this->MatKhau = $row['MatKhau'];
+        $this->MaUser = $row['MaUser'];
+        $this->NgaySinh = $row['NgaySinh'];
+        $this->SDT = $row['SDT'];
+        $this->TKNH = $row['TKNH'];
+        $this->token = $row['token'];
     }
 }

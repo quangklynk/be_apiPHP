@@ -45,7 +45,7 @@ class KhachHang
     {
         $query = 'INSERT INTO ' . $this->table . ' 
         SET
-            CMND = :CMND
+            CMND = :CMND,
             MaUser = :MaUser';
         $stmt = $this->conn->prepare($query);
 
