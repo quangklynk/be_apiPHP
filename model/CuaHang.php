@@ -49,9 +49,9 @@ class CuaHang
     {
         $query = 'INSERT INTO ' . $this->table . ' 
         SET
-            LoaiCuaHang = :LoaiCuaHang
-            MaUser = :MaUser
-            Ten = :Ten
+            LoaiCuaHang = :LoaiCuaHang,
+            MaUser = :MaUser,
+            Ten = :Ten,
             TrangThai = :TrangThai';
         $stmt = $this->conn->prepare($query);
 
@@ -78,9 +78,9 @@ class CuaHang
     {
         $query = 'UPDATE ' . $this->table . ' 
         SET
-            LoaiCuaHang = :LoaiCuaHang
-            MaUser = :MaUser
-            Ten = :Ten
+            LoaiCuaHang = :LoaiCuaHang,
+            MaUser = :MaUser,
+            Ten = :Ten,
             TrangThai = :TrangThai
         WHERE
             MaCH = :MaCH';

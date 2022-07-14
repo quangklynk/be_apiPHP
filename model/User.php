@@ -5,8 +5,7 @@ class User
     private $table = 'user';
 
     public $AnhChanDung;
-    public $DiaChiTamTru;
-    public $DiaChiThuongTru;
+    public $DiaChi;
     public $Email;
     public $GioiTinh;
     public $HoTen;
@@ -47,8 +46,7 @@ class User
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
         $this->AnhChanDung = $row['AnhChanDung'];
-        $this->DiaChiTamTru = $row['DiaChiTamTru'];
-        $this->DiaChiThuongTru = $row['DiaChiThuongTru'];
+        $this->DiaChi = $row['DiaChi'];
         $this->Email = $row['Email'];
         $this->GioiTinh = $row['GioiTinh'];
         $this->HoTen = $row['HoTen'];
@@ -65,23 +63,21 @@ class User
     {
         $query = 'INSERT INTO ' . $this->table . ' 
         SET
-            AnhChanDung = :AnhChanDung
-            DiaChiTamTru = :DiaChiTamTru
-            DiaChiThuongTru = :DiaChiThuongTru
-            Email = :Email
-            GioiTinh = :GioiTinh
-            HoTen = :HoTen
-            MaRole = :MaRole
-            MatKhau = :Ten
-            NgaySinh = :NgaySinh
-            SDT = :SDT
-            TKNH = :TKNH
+            AnhChanDung = :AnhChanDung,
+            DiaChi = :DiaChi,
+            Email = :Email,
+            GioiTinh = :GioiTinh,
+            HoTen = :HoTen,
+            MaRole = :MaRole,
+            MatKhau = :Ten,
+            NgaySinh = :NgaySinh,
+            SDT = :SDT,
+            TKNH = :TKNH,
             token = :token';
         $stmt = $this->conn->prepare($query);
 
         $this->AnhChanDung = htmlspecialchars(strip_tags($this->AnhChanDung));
-        $this->DiaChiTamTru = htmlspecialchars(strip_tags($this->DiaChiTamTru));
-        $this->DiaChiThuongTru = htmlspecialchars(strip_tags($this->DiaChiThuongTru));
+        $this->DiaChi = htmlspecialchars(strip_tags($this->DiaChi));
         $this->Email = htmlspecialchars(strip_tags($this->Email));
         $this->GioiTinh = htmlspecialchars(strip_tags($this->GioiTinh));
         $this->HoTen = htmlspecialchars(strip_tags($this->HoTen));
@@ -93,8 +89,7 @@ class User
         $this->token = htmlspecialchars(strip_tags($this->token));
 
         $stmt->bindParam(':AnhChanDung', $this->AnhChanDung);
-        $stmt->bindParam(':DiaChiTamTru', $this->DiaChiTamTru);
-        $stmt->bindParam(':DiaChiThuongTru', $this->DiaChiThuongTru);
+        $stmt->bindParam(':DiaChi', $this->DiaChi);
         $stmt->bindParam(':Email', $this->Email);
         $stmt->bindParam(':GioiTinh', $this->GioiTinh);
         $stmt->bindParam(':HoTen', $this->HoTen);
@@ -118,17 +113,16 @@ class User
     {
         $query = 'UPDATE ' . $this->table . ' 
         SET
-            AnhChanDung = :AnhChanDung
-            DiaChiTamTru = :DiaChiTamTru
-            DiaChiThuongTru = :DiaChiThuongTru
-            Email = :Email
-            GioiTinh = :GioiTinh
-            HoTen = :HoTen
-            MaRole = :MaRole
-            MatKhau = :Ten
-            NgaySinh = :NgaySinh
-            SDT = :SDT
-            TKNH = :TKNH
+            AnhChanDung = :AnhChanDung,
+            DiaChi = :DiaChi,
+            Email = :Email,
+            GioiTinh = :GioiTinh,
+            HoTen = :HoTen,
+            MaRole = :MaRole,
+            MatKhau = :Ten,
+            NgaySinh = :NgaySinh,
+            SDT = :SDT,
+            TKNH = :TKNH,
             token = :token
         WHERE
             MaUser = :MaUser';
@@ -136,8 +130,7 @@ class User
         $stmt = $this->conn->prepare($query);
 
         $this->AnhChanDung = htmlspecialchars(strip_tags($this->AnhChanDung));
-        $this->DiaChiTamTru = htmlspecialchars(strip_tags($this->DiaChiTamTru));
-        $this->DiaChiThuongTru = htmlspecialchars(strip_tags($this->DiaChiThuongTru));
+        $this->DiaChi = htmlspecialchars(strip_tags($this->DiaChi));
         $this->Email = htmlspecialchars(strip_tags($this->Email));
         $this->GioiTinh = htmlspecialchars(strip_tags($this->GioiTinh));
         $this->HoTen = htmlspecialchars(strip_tags($this->HoTen));
@@ -150,8 +143,7 @@ class User
         $this->token = htmlspecialchars(strip_tags($this->token));
 
         $stmt->bindParam(':AnhChanDung', $this->AnhChanDung);
-        $stmt->bindParam(':DiaChiTamTru', $this->DiaChiTamTru);
-        $stmt->bindParam(':DiaChiThuongTru', $this->DiaChiThuongTru);
+        $stmt->bindParam(':DiaChi', $this->DiaChi);
         $stmt->bindParam(':Email', $this->Email);
         $stmt->bindParam(':GioiTinh', $this->GioiTinh);
         $stmt->bindParam(':HoTen', $this->HoTen);
@@ -183,6 +175,37 @@ class User
 
         if ($stmt->execute()) {
             return true;
+        }
+
+        printf("Error: %s.\n", $stmt->error);
+        return false;
+    }
+
+    public function checkLogin() // SDT - MatKhau
+    {
+        // check SDT
+        $query = 'SELECT * FROM ' . $this->table . ' WHERE SDT = ? LIMIT 0,1';
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $this->SDT);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$row) {
+            return json_encode(
+                array('message' => "SDT chua dang ky!")
+            );
+        }
+
+        //check MK
+        if ($row['MatKhau'] != md5($this->MatKhau)) {
+            return json_encode(
+                array('message' => "Kiem tra thong tin dang nhap!")
+            );
+        }
+
+        // check token
+        if (empty($row['token'])) {
+            $token = 
         }
 
         printf("Error: %s.\n", $stmt->error);

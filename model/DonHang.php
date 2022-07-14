@@ -53,11 +53,11 @@ class DonHang
     {
         $query = 'INSERT INTO ' . $this->table . ' 
         SET
-            DiaChi = :DiaChi
-            MaUser = :MaUser
-            NgayGiao = :NgayGiao
-            NgayMuaHang = :NgayMuaHang
-            TongTien = :TongTien
+            DiaChi = :DiaChi,
+            MaUser = :MaUser,
+            NgayGiao = :NgayGiao,
+            NgayMuaHang = :NgayMuaHang,
+            TongTien = :TongTien,
             TrangThai = :TrangThai';
         $stmt = $this->conn->prepare($query);
 
@@ -88,11 +88,11 @@ class DonHang
     {
         $query = 'UPDATE ' . $this->table . ' 
         SET
-            DiaChi = :DiaChi
-            MaUser = :MaUser
-            NgayGiao = :NgayGiao
-            NgayMuaHang = :NgayMuaHang
-            TongTien = :TongTien
+            DiaChi = :DiaChi,
+            MaUser = :MaUser,
+            NgayGiao = :NgayGiao,
+            NgayMuaHang = :NgayMuaHang,
+            TongTien = :TongTien,
             TrangThai = :TrangThai
         WHERE
             MaDH = :MaDH';

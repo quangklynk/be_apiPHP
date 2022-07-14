@@ -47,8 +47,8 @@ class CuaHangSanPham
     {
         $query = 'INSERT INTO ' . $this->table . ' 
         SET
-            MaCH = :MaCH
-            MaSP = :MaSP
+            MaCH = :MaCH,
+            MaSP = :MaSP,
             SoLuong = :SoLuong';
         $stmt = $this->conn->prepare($query);
 
@@ -73,8 +73,8 @@ class CuaHangSanPham
     {
         $query = 'UPDATE ' . $this->table . ' 
         SET
-            MaCH = :MaCH
-            MaSP = :MaSP
+            MaCH = :MaCH,
+            MaSP = :MaSP,
             SoLuong = :SoLuong
         WHERE
             ID = :ID';
