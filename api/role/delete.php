@@ -10,7 +10,7 @@ $database = new Database();
 $db = $database->connect();
 
 $role = new Role($db);
-$role->id = isset($_GET['id']) ? $_GET['id'] : die();
+$role->MaRole = isset($_GET['MaRole']) ? $_GET['MaRole'] : die();
 
 if ($role->delete()) {
     echo json_encode(
