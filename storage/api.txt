@@ -1,0 +1,3 @@
+/Role ===================
+list: http://localhost/BE_DoAnUDPT/api/role/read.php
+index: http://localhost/BE_DoAnUDPT/api/role/item.php?id=1
