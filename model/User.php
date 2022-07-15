@@ -224,9 +224,7 @@ class User
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        $this->AnhChanDung = $row['AnhChanDung'];
-        $this->DiaChiTamTru = $row['DiaChiTamTru'];
-        $this->DiaChiThuongTru = $row['DiaChiThuongTru'];
+        $this->MaUser = $row['MaUser'];
     }
     
     public function checkAccount() {
@@ -282,7 +280,6 @@ class User
                 $this->token = $token;
 
                 $this->AnhChanDung = $row['AnhChanDung'];
-                $this->DiaChi = $row['DiaChi'];
                 $this->Email = $row['Email'];
                 $this->GioiTinh = $row['GioiTinh'];
                 $this->HoTen = $row['HoTen'];
@@ -299,7 +296,6 @@ class User
         }
 
         $this->AnhChanDung = $row['AnhChanDung'];
-        $this->DiaChi = $row['DiaChi'];
         $this->Email = $row['Email'];
         $this->GioiTinh = $row['GioiTinh'];
         $this->HoTen = $row['HoTen'];

@@ -21,7 +21,9 @@ $user->Email = $data->Email;
 $user->HoTen = $data->HoTen;
 $user->MaRole = 3;
 $user->MatKhau = md5($data->MatKhau);
-$user->SDT = (int)$data->SDT;
+$user->SDT = $data->SDT;
+$user->GioiTinh = $data->GioiTinh;
+$user->DiaChi = $data->DiaChi;
 
 
 if ($user->register()) {
