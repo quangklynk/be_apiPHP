@@ -304,7 +304,6 @@ class User
         $this->GioiTinh = $row['GioiTinh'];
         $this->HoTen = $row['HoTen'];
         $this->MaRole = $row['MaRole'];
-        $this->MatKhau = $row['MatKhau'];
         $this->MaUser = $row['MaUser'];
         $this->NgaySinh = $row['NgaySinh'];
         $this->SDT = $row['SDT'];
@@ -319,4 +318,42 @@ class User
         //           'data' => $row,)
         // );
     }
+
+    public function sloveTokenLogout() {
+        // check token
+        $query = 'SELECT * FROM ' . $this->table . ' WHERE token = ? LIMIT 0,1';
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $this->token);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (empty($row['MaUser'])) {
+            return false;
+        }
+
+        $this->MaUser = $row['MaUser']; // update
+        $newToken = '';
+
+        $query1 = 'UPDATE ' . $this->table . ' 
+        SET
+            token = :token
+        WHERE
+            MaUser = :MaUser';
+
+        $stmt1 = $this->conn->prepare($query1);
+
+        $this->MaUser = htmlspecialchars(strip_tags($this->MaUser));
+        $this->token = htmlspecialchars(strip_tags($newToken));
+
+        $stmt1->bindParam(':MaUser', $this->MaUser);
+        $stmt1->bindParam(':token', $newToken);
+        if ($stmt1->execute()) {
+            return true;
+        }
+
+        printf("Error: %s.\n", $stmt1->error);
+
+        return false;
+    }
+
 }

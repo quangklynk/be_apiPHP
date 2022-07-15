@@ -17,7 +17,7 @@ class ChiTietDonHang
 
     public function read()
     {
-        $query = 'SELECT * FROM ' . $this->table;
+        $query = 'SELECT ctdh.*, sp.TenSP FROM ' . $this->table . ' as ctdh, '. $this->table_sp.' as sp'.' WHERE ctdh.MaSP = sp.MaSP';
 
         $stmt = $this->conn->prepare($query);
 
