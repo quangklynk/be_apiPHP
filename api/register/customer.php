@@ -27,7 +27,7 @@ $user->SDT = (int)$data->SDT;
 if ($user->register()) {
     $user->getByEmail();
 
-    $customer->CMND = 123456785;
+    $customer->CMND = $data->CMND;
     $customer->MaUser = $user->MaUser;
 
     if ($customer->create()) {
