@@ -68,7 +68,7 @@ class KhachHang
     {
         $query = 'UPDATE ' . $this->table . ' 
         SET
-            CMND = :CMND
+            CMND = :CMND,
             MaUser = :MaUser
         WHERE
             MaKH = :MaKH';

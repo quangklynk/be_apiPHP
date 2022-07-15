@@ -49,9 +49,9 @@ class SanPham
     {
         $query = 'INSERT INTO ' . $this->table . ' 
         SET
-            GiaSP = :GiaSP
-            MoTa = :MoTa
-            NgaySanXuat = :NgaySanXuat
+            GiaSP = :GiaSP,
+            MoTa = :MoTa,
+            NgaySanXuat = :NgaySanXuat,
             TenSP = :TenSP';
         $stmt = $this->conn->prepare($query);
 
@@ -78,9 +78,9 @@ class SanPham
     {
         $query = 'UPDATE ' . $this->table . ' 
         SET
-            GiaSP = :GiaSP
-            MoTa = :MoTa
-            NgaySanXuat = :NgaySanXuat
+            GiaSP = :GiaSP,
+            MoTa = :MoTa,
+            NgaySanXuat = :NgaySanXuat,
             TenSP = :TenSP
         WHERE
             MaSP = :MaSP';
