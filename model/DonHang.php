@@ -123,6 +123,54 @@ class DonHang
         return false;
     }
 
+    public function updateStatus()
+    {
+        $query = 'UPDATE ' . $this->table . ' 
+        SET
+            TrangThai = :TrangThai
+        WHERE
+            MaDH = :MaDH';
+
+        $stmt = $this->conn->prepare($query);
+
+        $this->TrangThai = htmlspecialchars(strip_tags($this->TrangThai));
+        $this->MaDH = htmlspecialchars(strip_tags($this->MaDH));
+
+        $stmt->bindParam(':TrangThai', $this->TrangThai);
+        $stmt->bindParam(':MaDH', $this->MaDH);
+        if ($stmt->execute()) {
+            return true;
+        }
+
+        printf("Error: %s.\n", $stmt->error);
+
+        return false;
+    }
+
+    public function updateDeliveryDate()
+    {
+        $query = 'UPDATE ' . $this->table . ' 
+        SET
+            NgayGiao = :NgayGiao
+        WHERE
+            MaDH = :MaDH';
+
+        $stmt = $this->conn->prepare($query);
+
+        $this->NgayGiao = htmlspecialchars(strip_tags($this->NgayGiao));
+        $this->MaDH = htmlspecialchars(strip_tags($this->MaDH));
+
+        $stmt->bindParam(':NgayGiao', $this->NgayGiao);
+        $stmt->bindParam(':MaDH', $this->MaDH);
+        if ($stmt->execute()) {
+            return true;
+        }
+
+        printf("Error: %s.\n", $stmt->error);
+
+        return false;
+    }
+
     public function delete()
     {
         $query = 'DELETE FROM ' . $this->table . ' 
