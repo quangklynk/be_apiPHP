@@ -181,8 +181,7 @@ class User
         return false;
     }
 
-    public function checkLogin() // SDT - MatKhau
-    {
+    public function checkAccount() {
         // check SDT
         $query = 'SELECT * FROM ' . $this->table . ' WHERE SDT = ? LIMIT 0,1';
         $stmt = $this->conn->prepare($query);
@@ -190,25 +189,85 @@ class User
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if (!$row) {
-            return json_encode(
-                array('message' => "SDT chua dang ky!")
-            );
+        if (empty($row['SDT'])) {
+            return false;
         }
 
         //check MK
         if ($row['MatKhau'] != md5($this->MatKhau)) {
-            return json_encode(
-                array('message' => "Kiem tra thong tin dang nhap!")
-            );
+            return false;
         }
+
+        return true;
+    }
+
+    public function checkToken() // SDT - MatKhau
+    {
+
+        $query = 'SELECT * FROM ' . $this->table . ' WHERE SDT = ? LIMIT 0,1';
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $this->SDT);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
         // check token
         if (empty($row['token'])) {
-            $token = 
+            $stringToCreateToken = $this->MaUser . $this->SDT;
+            $token = md5($stringToCreateToken);
+
+            // update token
+            $query = 'UPDATE ' . $this->table . ' 
+            SET
+                token = :token
+            WHERE
+                MaUser = :MaUser';
+
+            $stmt = $this->conn->prepare($query);
+
+            $this->token = htmlspecialchars(strip_tags($token));
+            $this->MaUser = htmlspecialchars(strip_tags($row['MaUser']));
+
+            $stmt->bindParam(':token', $token);
+            $stmt->bindParam(':MaUser', $row['MaUser']);
+
+            if ($stmt->execute()) {
+                $this->token = $token;
+
+                $this->AnhChanDung = $row['AnhChanDung'];
+                $this->DiaChi = $row['DiaChi'];
+                $this->Email = $row['Email'];
+                $this->GioiTinh = $row['GioiTinh'];
+                $this->HoTen = $row['HoTen'];
+                $this->MaRole = $row['MaRole'];
+                $this->MaUser = $row['MaUser'];
+                $this->NgaySinh = $row['NgaySinh'];
+                $this->SDT = $row['SDT'];
+                $this->TKNH = $row['TKNH'];
+
+                return true;
+            }
+
+            return false;
         }
 
-        printf("Error: %s.\n", $stmt->error);
-        return false;
+        $this->AnhChanDung = $row['AnhChanDung'];
+        $this->DiaChi = $row['DiaChi'];
+        $this->Email = $row['Email'];
+        $this->GioiTinh = $row['GioiTinh'];
+        $this->HoTen = $row['HoTen'];
+        $this->MaRole = $row['MaRole'];
+        $this->MaUser = $row['MaUser'];
+        $this->NgaySinh = $row['NgaySinh'];
+        $this->SDT = $row['SDT'];
+        $this->TKNH = $row['TKNH'];
+        $this->token = $row['token'];
+
+        return true;
+
+        // return json_encode(
+        //     array('message' => "Dang nhap thanh cong!",
+        //           'token' => $row['token'],
+        //           'data' => $row,)
+        // );
     }
 }

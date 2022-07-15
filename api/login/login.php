@@ -15,18 +15,24 @@ $user = new User($db);
 
 $data = json_decode(file_get_contents("php://input"));
 
-$role->Ten = $data->Ten;
-$role->MaRole = $data->MaRole;
+$user->SDT = $data->SDT;
+$user->MatKhau = $data->MatKhau;
 
 
-if ($role->update()) {
-    echo json_encode(
-        array(
-            'message' => "Sua thanh cong"
-        )
+if ($user->checkAccount()) {
+    if ($user->checkToken()) {
+        return json_encode(
+            array('message' => "Dang nhap thanh cong!",
+                  'token' => $user->token,
+                  'data' => $user,)
+        );
+    }
+
+    return json_encode(
+        array('message' => "Loi khi tao token!")
     );
 } else {
-    echo json_encode(
-        array('message' => "Sua that bai")
+    return json_encode(
+        array('message' => "Sai thong tin dang nhap, hoac chua dang ky!")
     );
 }
