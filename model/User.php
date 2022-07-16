@@ -465,6 +465,7 @@ class User
         }
 
         $this->MaUser = $row['MaUser'];
+        $this->MaRole = $row['MaRole'];
 
         return true;
     }

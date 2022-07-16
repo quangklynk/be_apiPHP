@@ -17,18 +17,20 @@ $sp = new SanPham($db);
 $user = new User($db);
 $uploadfile = new UpLoadFile();
 
-$data = json_decode(file_get_contents("php://input"));
+// $data = json_decode(file_get_contents("php://input"));
 
 $fileName = $_FILES['image']['name'];
 $tempPath = $_FILES['image']['tmp_name'];
 $fileSize = $_FILES['image']['size'];
 $path = "../../storage/image/";
 
-$sp->GiaSP = $data->GiaSP;
-$sp->MoTa = $data->MoTa;
-$sp->NgaySanXuat = $data->NgaySanXuat;
-$sp->TenSP = $data->TenSP;
-$sp->HinhAnh = $path;
+$user->token = $_POST['token'];
+
+$sp->GiaSP = $_POST['GiaSP'];
+$sp->MoTa = $_POST['MoTa'];
+$sp->NgaySanXuat = $_POST['NgaySanXuat'];
+$sp->TenSP = $_POST['TenSP'];
+$sp->HinhAnh = $fileName;
 
 if ($user->checkShop()) {
     if ($sp->create()) {
@@ -38,6 +40,7 @@ if ($user->checkShop()) {
                 'message' => "Tao thanh cong"
             )
         );
+        die();
     }
     echo json_encode(
         array('message' => "Tao that bai")

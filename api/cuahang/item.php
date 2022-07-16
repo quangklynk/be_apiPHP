@@ -12,7 +12,10 @@ $db = $database->connect();
 
 $ch = new CuaHang($db);
 $user = new User($db);
-$ch->MaCH = isset($_GET['MaCH']) ? $_GET['MaCH'] : die();
+$ch->MaCH = isset($_GET['MaCH']) ? $_GET['MaCH'] : null;
+$user->token = isset($_GET['token']) ? $_GET['token'] : null;
+
+
 
 if ($user->checkEndUser()) {
     echo json_encode(
