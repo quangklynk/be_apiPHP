@@ -84,9 +84,8 @@ class CuaHang
         $query = 'UPDATE ' . $this->table . ' 
         SET
             LoaiCuaHang = :LoaiCuaHang,
-            MaUser = :MaUser,
             Ten = :Ten,
-            TrangThai = :TrangThai
+            HinhAnh = :HinhAnh
         WHERE
             MaCH = :MaCH';
 
