@@ -26,6 +26,7 @@ if ($chsp->create()) {
             'message' => "Tao thanh cong"
         )
     );
+    die();
 } else {
     echo json_encode(
         array('message' => "Tao that bai")

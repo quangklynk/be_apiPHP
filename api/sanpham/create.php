@@ -40,6 +40,7 @@ if ($user->checkShop()) {
                 'message' => "Tao thanh cong"
             )
         );
+        die();
     }
     echo json_encode(
         array('message' => "Tao that bai")

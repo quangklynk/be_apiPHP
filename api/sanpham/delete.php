@@ -24,6 +24,7 @@ if ($user->checkShop()) {
                 'message' => "Xoa thanh cong"
             )
         );
+        die();
     }
     echo json_encode(
         array('message' => "Xoa that bai")
