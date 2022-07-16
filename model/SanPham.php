@@ -9,6 +9,7 @@ class SanPham
     public $MoTa;
     public $NgaySanXuat;
     public $TenSP;
+    public $HinhAnh;
 
     public function __construct($db)
     {
@@ -43,6 +44,7 @@ class SanPham
         $this->MoTa = $row['MoTa'];
         $this->NgaySanXuat = $row['NgaySanXuat'];
         $this->TenSP = $row['TenSP'];
+        $this->HinhAnh = $row['HinhAnh'];
     }
 
     public function create()
@@ -52,6 +54,7 @@ class SanPham
             GiaSP = :GiaSP,
             MoTa = :MoTa,
             NgaySanXuat = :NgaySanXuat,
+            HinhAnh = :HinhAnh,
             TenSP = :TenSP';
         $stmt = $this->conn->prepare($query);
 
@@ -59,11 +62,13 @@ class SanPham
         $this->MoTa = htmlspecialchars(strip_tags($this->MoTa));
         $this->NgaySanXuat = htmlspecialchars(strip_tags($this->NgaySanXuat));
         $this->TenSP = htmlspecialchars(strip_tags($this->TenSP));
+        $this->HinhAnh = htmlspecialchars(strip_tags($this->HinhAnh));
 
         $stmt->bindParam(':GiaSP', $this->GiaSP);
         $stmt->bindParam(':MoTa', $this->MoTa);
         $stmt->bindParam(':NgaySanXuat', $this->NgaySanXuat);
         $stmt->bindParam(':TenSP', $this->TenSP);
+        $stmt->bindParam(':HinhAnh', $this->HinhAnh);
 
         if ($stmt->execute()) {
             return true;

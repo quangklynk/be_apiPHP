@@ -356,4 +356,67 @@ class User
         return false;
     }
 
+    public function checkAdmin() {
+        // check token
+        $query = 'SELECT * FROM ' . $this->table . ' WHERE token = ? LIMIT 0,1';
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $this->token);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (empty($row['MaUser'])) {
+            return false;
+        }
+
+        if ($row['MaRole'] == 1) {
+            return true;
+        }
+
+        printf("Error: %s.\n", $stmt->error);
+
+        return false;
+    }
+
+    public function checkShop() {
+        // check token
+        $query = 'SELECT * FROM ' . $this->table . ' WHERE token = ? LIMIT 0,1';
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $this->token);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (empty($row['MaUser'])) {
+            return false;
+        }
+
+        if ($row['MaRole'] == 2) {
+            return true;
+        }
+
+        printf("Error: %s.\n", $stmt->error);
+
+        return false;
+    }
+
+    public function checkEndUser() {
+        // check token
+        $query = 'SELECT * FROM ' . $this->table . ' WHERE token = ? LIMIT 0,1';
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $this->token);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (empty($row['MaUser'])) {
+            return false;
+        }
+
+        if ($row['MaRole'] == 3) {
+            return true;
+        }
+
+        printf("Error: %s.\n", $stmt->error);
+
+        return false;
+    }
+
 }

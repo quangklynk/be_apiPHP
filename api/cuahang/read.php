@@ -4,37 +4,37 @@ header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 
 include_once '../../config/Database.php';
-include_once '../../model/SanPham.php';
+include_once '../../model/CuaHang.php';
 
 $database = new Database();
 $db = $database->connect();
 
-$sp = new SanPham($db);
+$ch = new CuaHang($db);
 
-$result = $sp->read();
+$result = $ch->read();
 
 $num = $result->rowCount();
 
 if ($num > 0) {
-    $sps = array();
-    $sps['data'] = array();
+    $chs = array();
+    $chs['data'] = array();
 
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
 
-        $sp_item = array(
-            'GiaSP' => $GiaSP,
-            'MaSP' => $MaSP,
-            'MoTa' => $MoTa,
-            'NgaySanXuat' => $NgaySanXuat,
-            'TenSP' => $TenSP,
+        $ch_item = array(
+            'LoaiCuaHang' => $LoaiCuaHang,
+            'MaCH' => $MaCH,
+            'MaUser' => $MaUser,
+            'Ten' => $Ten,
+            'TrangThai' => $TrangThai,
             'HinhAnh' => $HinhAnh,
         );
 
-        array_push($sps['data'], $sp_item);
+        array_push($chs['data'], $ch_item);
     }
 
-    echo json_encode($sps);
+    echo json_encode($chs);
 } else {
     echo json_encode(
         array('message' => 'No Posts Found')

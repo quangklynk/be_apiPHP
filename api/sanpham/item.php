@@ -20,5 +20,6 @@ $sp_item = array(
     'MoTa' => $sp->MoTa,
     'NgaySanXuat' => $sp->NgaySanXuat,
     'TenSP' => $sp->TenSP,
+    'HinhAnh' => $sp->HinhAnh,
 );
 echo json_encode($sp_item);
