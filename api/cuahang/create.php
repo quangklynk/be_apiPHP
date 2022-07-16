@@ -17,18 +17,20 @@ $ch = new CuaHang($db);
 $user = new User($db);
 $uploadfile = new UpLoadFile();
 
-$data = json_decode(file_get_contents("php://input"), true);
+// $data = json_decode(file_get_contents("php://input"), true);
 
 $fileName = $_FILES['image']['name'];
 $tempPath = $_FILES['image']['tmp_name'];
 $fileSize = $_FILES['image']['size'];
 $path = "../../storage/image/";
 
-$ch->LoaiCuaHang = $data->LoaiCuaHang;
-$ch->MaUser = $data->MaUser;
-$ch->Ten = $data->Ten;
+$ch->LoaiCuaHang = $_POST['LoaiCuaHang'];
+$ch->MaUser = $_POST['MaUser'];
+$ch->Ten = $_POST['Ten'];
 $ch->TrangThai = 0;
-$ch->HinhAnh = $path;
+$ch->HinhAnh = $fileName;
+
+$user->token = $_POST['token'];
 
 
 if ($user->checkShop()) {
@@ -39,6 +41,7 @@ if ($user->checkShop()) {
                 'message' => "Tao thanh cong"
             )
         );
+        die();
     }
     echo json_encode(
         array('message' => "Tao that bai")
