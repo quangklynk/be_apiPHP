@@ -9,6 +9,7 @@ class CuaHang
     public $MaUser;
     public $Ten;
     public $TrangThai;
+    public $HinhAnh;
 
     public function __construct($db)
     {
@@ -43,6 +44,7 @@ class CuaHang
         $this->MaUser = $row['MaUser'];
         $this->Ten = $row['Ten'];
         $this->TrangThai = $row['TrangThai'];
+        $this->HinhAnh = $row['HinhAnh'];
     }
 
     public function create()
@@ -52,6 +54,7 @@ class CuaHang
             LoaiCuaHang = :LoaiCuaHang,
             MaUser = :MaUser,
             Ten = :Ten,
+            HinhAnh = :HinhAnh,
             TrangThai = :TrangThai';
         $stmt = $this->conn->prepare($query);
 
@@ -59,11 +62,13 @@ class CuaHang
         $this->MaUser = htmlspecialchars(strip_tags($this->MaUser));
         $this->Ten = htmlspecialchars(strip_tags($this->Ten));
         $this->TrangThai = htmlspecialchars(strip_tags($this->TrangThai));
+        $this->HinhAnh = htmlspecialchars(strip_tags($this->HinhAnh));
 
         $stmt->bindParam(':LoaiCuaHang', $this->LoaiCuaHang);
         $stmt->bindParam(':MaUser', $this->MaUser);
         $stmt->bindParam(':Ten', $this->Ten);
         $stmt->bindParam(':TrangThai', $this->TrangThai);
+        $stmt->bindParam(':HinhAnh', $this->HinhAnh);
 
         if ($stmt->execute()) {
             return true;
@@ -107,6 +112,54 @@ class CuaHang
         return false;
     }
 
+    public function updateLogo()
+    {
+        $query = 'UPDATE ' . $this->table . ' 
+        SET
+            HinhAnh = :HinhAnh
+        WHERE
+            MaCH = :MaCH';
+
+        $stmt = $this->conn->prepare($query);
+
+        $this->HinhAnh = htmlspecialchars(strip_tags($this->HinhAnh));
+        $this->MaCH = htmlspecialchars(strip_tags($this->MaCH));
+
+        $stmt->bindParam(':HinhAnh', $this->HinhAnh);
+        $stmt->bindParam(':MaCH', $this->MaCH);
+        if ($stmt->execute()) {
+            return true;
+        }
+
+        printf("Error: %s.\n", $stmt->error);
+
+        return false;
+    }
+
+    public function updateStatus()
+    {
+        $query = 'UPDATE ' . $this->table . ' 
+        SET
+            TrangThai = :TrangThai
+        WHERE
+            MaCH = :MaCH';
+
+        $stmt = $this->conn->prepare($query);
+
+        $this->TrangThai = htmlspecialchars(strip_tags($this->TrangThai));
+        $this->MaCH = htmlspecialchars(strip_tags($this->MaCH));
+
+        $stmt->bindParam(':TrangThai', $this->TrangThai);
+        $stmt->bindParam(':MaCH', $this->MaCH);
+        if ($stmt->execute()) {
+            return true;
+        }
+
+        printf("Error: %s.\n", $stmt->error);
+
+        return false;
+    }
+
     public function delete()
     {
         $query = 'DELETE FROM ' . $this->table . ' 
@@ -124,4 +177,5 @@ class CuaHang
         printf("Error: %s.\n", $stmt->error);
         return false;
     }
+
 }

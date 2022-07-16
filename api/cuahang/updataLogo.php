@@ -6,44 +6,34 @@ header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
 
 include_once '../../config/Database.php';
-include_once '../../model/SanPham.php';
-include_once '../../model/User.php';
+include_once '../../model/CuaHang.php';
 include_once '../../config/UpLoadFile.php';
 
 $database = new Database();
 $db = $database->connect();
 
-$sp = new SanPham($db);
-$user = new User($db);
+$ch = new CuaHang($db);
 $uploadfile = new UpLoadFile();
 
-$data = json_decode(file_get_contents("php://input"));
+$data = json_decode(file_get_contents("php://input"), true);
 
 $fileName = $_FILES['image']['name'];
 $tempPath = $_FILES['image']['tmp_name'];
 $fileSize = $_FILES['image']['size'];
 $path = "../../storage/image/";
 
-$sp->GiaSP = $data->GiaSP;
-$sp->MoTa = $data->MoTa;
-$sp->NgaySanXuat = $data->NgaySanXuat;
-$sp->TenSP = $data->TenSP;
-$sp->HinhAnh = $path;
+$ch->MaCH = $data->MaCH;
+$ch->HinhAnh = $path;
 
-if ($user->checkShop()) {
-    if ($sp->create()) {
-        $uploadfile->upload($fileName, $tempPath, $fileSize, $path);
-        echo json_encode(
-            array(
-                'message' => "Tao thanh cong"
-            )
-        );
-    }
+
+if ($ch->updateLogo()) {
     echo json_encode(
-        array('message' => "Tao that bai")
+        array(
+            'message' => "Sua thanh cong"
+        )
     );
 } else {
     echo json_encode(
-        array('message' => "Khong quyen truy cap!")
+        array('message' => "Sua that bai")
     );
 }

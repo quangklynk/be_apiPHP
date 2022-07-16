@@ -6,32 +6,33 @@ header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
 
 include_once '../../config/Database.php';
-include_once '../../model/SanPham.php';
+include_once '../../model/CuaHang.php';
 include_once '../../model/User.php';
 include_once '../../config/UpLoadFile.php';
 
 $database = new Database();
 $db = $database->connect();
 
-$sp = new SanPham($db);
+$ch = new CuaHang($db);
 $user = new User($db);
 $uploadfile = new UpLoadFile();
 
-$data = json_decode(file_get_contents("php://input"));
+$data = json_decode(file_get_contents("php://input"), true);
 
 $fileName = $_FILES['image']['name'];
 $tempPath = $_FILES['image']['tmp_name'];
 $fileSize = $_FILES['image']['size'];
 $path = "../../storage/image/";
 
-$sp->GiaSP = $data->GiaSP;
-$sp->MoTa = $data->MoTa;
-$sp->NgaySanXuat = $data->NgaySanXuat;
-$sp->TenSP = $data->TenSP;
-$sp->HinhAnh = $path;
+$ch->LoaiCuaHang = $data->LoaiCuaHang;
+$ch->MaUser = $data->MaUser;
+$ch->Ten = $data->Ten;
+$ch->TrangThai = 0;
+$ch->HinhAnh = $path;
+
 
 if ($user->checkShop()) {
-    if ($sp->create()) {
+    if ($ch->create()) {
         $uploadfile->upload($fileName, $tempPath, $fileSize, $path);
         echo json_encode(
             array(
