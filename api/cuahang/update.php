@@ -23,10 +23,12 @@ $fileSize = $_FILES['image']['size'];
 $path = "../../storage/image/";
 
 $ch->MaCH = $_POST['MaCH'];
+$ch->LoaiCuaHang = $_POST['LoaiCuaHang'];
+$ch->Ten = $_POST['Ten'];
 $ch->HinhAnh = $fileName;
 
 
-if ($ch->updateLogo()) {
+if ($ch->update()) {
     echo json_encode(
         array(
             'message' => "Sua thanh cong"

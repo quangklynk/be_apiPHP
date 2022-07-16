@@ -40,7 +40,7 @@ login: http://localhost:8888/be_apiPHP/api/login/login.php
   /CuaHang ===================
  item: http://localhost:8888/be_apiPHP/api/cuahang/item.php
  read: http://localhost:8888/be_apiPHP/api/cuahang/read.php
- updateLogo: http://localhost:8888/be_apiPHP/api/cuahang/updateLogo.php
+ update: http://localhost:8888/be_apiPHP/api/cuahang/update.php
  updateStatus: http://localhost:8888/be_apiPHP/api/cuahang/updateLogo.php
  create: http://localhost:8888/be_apiPHP/api/cuahang/create.php
  getAllShopByMaUser: http://localhost:8888/be_apiPHP/api/cuahang/getAllShopByMaUser.php
