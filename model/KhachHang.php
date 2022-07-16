@@ -59,8 +59,6 @@ class KhachHang
             return true;
         }
 
-        printf("Error: %s.\n", $stmt->error);
-
         return false;
     }
 

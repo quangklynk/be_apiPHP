@@ -10,7 +10,7 @@ $database = new Database();
 $db = $database->connect();
 
 $sp = new SanPham($db);
-$sp->MaSP = isset($_GET['MaSP']) ? $_GET['MaSP'] : die();
+// $sp->MaSP = isset($_GET['MaSP']) ? $_GET['MaSP'] : die();
 
 $result = $sp->read();
 
@@ -30,6 +30,8 @@ if ($num > 0) {
             'NgaySanXuat' => $NgaySanXuat,
             'TenSP' => $TenSP,
             'HinhAnh' => $HinhAnh,
+            'MaCH' => $MaCH,
+            'SoLuong' => $SoLuong,
         );
 
         array_push($sps['data'], $sp_item);

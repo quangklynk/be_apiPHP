@@ -10,9 +10,9 @@ $database = new Database();
 $db = $database->connect();
 
 $sp = new SanPham($db);
-$MaCH = isset($_GET['MaCH']) ? $_GET['MaCH'] : die();
+$this->MaCH = isset($_GET['MaCH']) ? $_GET['MaCH'] : die();
 
-$result = $sp->getAllProductByMaCH($MaCH);
+$result = $sp->getAllProductByMaCH();
 
 $num = $result->rowCount();
 

@@ -371,8 +371,6 @@ class User
             return true;
         }
 
-        printf("Error: %s.\n", $stmt->error);
-
         return false;
     }
 
@@ -392,8 +390,6 @@ class User
             return true;
         }
 
-        printf("Error: %s.\n", $stmt->error);
-
         return false;
     }
 
@@ -412,8 +408,6 @@ class User
         if ($row['MaRole'] == 3) {
             return true;
         }
-
-        printf("Error: %s.\n", $stmt->error);
 
         return false;
     }
