@@ -16,7 +16,7 @@ $user = new User($db);
 $sp->MaSP = isset($_GET['MaSP']) ? $_GET['MaSP'] : null;
 $user->token = isset($_GET['token']) ? $_GET['token'] : null;
 
-if ($user->checkShop()) {
+if ($user->checkShop() || $user->checkAdmin()) {
     if ($sp->delete()) {
         echo json_encode(
             array(
