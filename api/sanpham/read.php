@@ -10,7 +10,6 @@ $database = new Database();
 $db = $database->connect();
 
 $sp = new SanPham($db);
-$sp->MaSP = isset($_GET['MaSP']) ? $_GET['MaSP'] : die();
 
 $result = $sp->read();
 

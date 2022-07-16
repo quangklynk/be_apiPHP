@@ -18,7 +18,6 @@ $user->token = isset($_GET['token']) ? $_GET['token'] : null;
 
 if ($user->checkShop()) {
     if ($sp->delete()) {
-        // $uploadfile->upload($fileName, $tempPath, $fileSize, $path);
         echo json_encode(
             array(
                 'message' => "Xoa thanh cong"
