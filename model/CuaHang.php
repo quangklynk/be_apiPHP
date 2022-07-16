@@ -178,4 +178,19 @@ class CuaHang
         return false;
     }
 
+    public function getAllShopByMaUser()
+    {
+        $query = 'SELECT * FROM ' . $this->table . ' WHERE MaUser = ?';
+
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(1, $this->MaUser);
+
+        if (!$stmt->execute()) {
+            return false;
+        }
+
+        return $stmt;
+    }
+
 }

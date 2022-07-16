@@ -452,4 +452,23 @@ class User
 
     }
 
+    public function findUserByToken() {
+        // check token
+        $query = 'SELECT * FROM ' . $this->table . ' WHERE token = ? LIMIT 0,1';
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $this->token);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (empty($row['MaUser'])) {
+            return false;
+        }
+
+        $this->MaUser = $row['MaUser'];
+
+        printf("Error: %s.\n", $stmt->error);
+
+        return true;
+    }
+
 }
