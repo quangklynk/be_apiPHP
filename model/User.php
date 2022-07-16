@@ -465,6 +465,7 @@ class User
         }
 
         $this->MaUser = $row['MaUser'];
+        $this->MaRole = $row['MaRole'];
 
         printf("Error: %s.\n", $stmt->error);
 
