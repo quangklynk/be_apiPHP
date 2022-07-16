@@ -15,7 +15,7 @@ login: http://localhost:8888/be_apiPHP/api/login/login.php
  /SanPham ===================
  delete: http://localhost:8888/be_apiPHP/api/sanpham/delete.php
  item: http://localhost:8888/be_apiPHP/api/sanpham/item.php
- read: http://localhost:8888/be_apiPHP/api/sanpham/read.php
+ read: http://localhost:8888/be_apiPHP/api/sanpham/read.php?token=
  update: http://localhost:8888/be_apiPHP/api/sanpham/update.php
  create: http://localhost:8888/be_apiPHP/api/sanpham/create.php
 
@@ -42,7 +42,9 @@ login: http://localhost:8888/be_apiPHP/api/login/login.php
  updateLogo: http://localhost:8888/be_apiPHP/api/cuahang/updateLogo.php
  updateStatus: http://localhost:8888/be_apiPHP/api/cuahang/updateLogo.php
  create: http://localhost:8888/be_apiPHP/api/cuahang/create.php
+ getAllShopByMaUser: http://localhost:8888/be_apiPHP/api/cuahang/getAllShopByMaUser.php?token=
 
    /ChiTietDonHang ===================
  create: http://localhost:8888/be_apiPHP/api/chitietdonhang/create.php
  read: http://localhost:8888/be_apiPHP/api/chitietdonhang/read.php
+ ..
