@@ -3,6 +3,7 @@ class User
 {
     private $conn;
     private $table = 'user';
+    private $table_khachhang = 'khachhang';
 
     public $AnhChanDung;
     public $DiaChi;
@@ -16,6 +17,8 @@ class User
     public $SDT;
     public $TKNH;
     public $token;
+
+    public $CMND;
 
     public function __construct($db)
     {
@@ -417,6 +420,40 @@ class User
         printf("Error: %s.\n", $stmt->error);
 
         return false;
+    }
+
+    public function getListUserByMarole()
+    {
+
+        if ($this->MaRole == 3) {
+            $query = 'SELECT u.*, kh.CMND FROM ' . $this->table . ' as u,' . $this->table_khachhang . ' as kh' . ' WHERE u.MaUser = kh.MaUser and u.MaRole = ? LIMIT 0,1';
+        }
+
+        $query = 'SELECT * FROM ' . $this->table . ' WHERE MaRole = ? LIMIT 0,1';
+
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(1, $this->MaRole);
+
+        $stmt->execute();
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $this->AnhChanDung = $row['AnhChanDung'];
+        $this->DiaChi = $row['DiaChi'];
+        $this->Email = $row['Email'];
+        $this->GioiTinh = $row['GioiTinh'];
+        $this->HoTen = $row['HoTen'];
+        $this->MaRole = $row['MaRole'];
+        $this->MaUser = $row['MaUser'];
+        $this->NgaySinh = $row['NgaySinh'];
+        $this->SDT = $row['SDT'];
+        $this->TKNH = $row['TKNH'];
+
+        if ($this->MaRole == 3) {
+            $this->TKNH = $row['TKNH'];
+        }
+
     }
 
 }
