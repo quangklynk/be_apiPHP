@@ -32,8 +32,10 @@ if ($ch->updateLogo()) {
             'message' => "Sua thanh cong"
         )
     );
+    die();
 } else {
     echo json_encode(
         array('message' => "Sua that bai")
     );
+    die();
 }

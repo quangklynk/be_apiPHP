@@ -17,6 +17,8 @@ $user = new User($db);
 
 $data = json_decode(file_get_contents("php://input"));
 
+$user->token = $data->token;
+
 $ch->MaCH = $data->MaCH;
 $ch->TrangThai = 1;
 
@@ -28,6 +30,7 @@ if ($user->checkShop()) {
                 'message' => "Sua thanh cong"
             )
         );
+        die();
     }
     echo json_encode(
         array('message' => "Sua that bai")
