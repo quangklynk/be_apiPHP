@@ -48,7 +48,7 @@ class SanPham
         $this->HinhAnh = $row['HinhAnh'];
     }
 
-    public function create()
+    public function create($MaCH, $SoLuong)
     {
         $query = 'INSERT INTO ' . $this->table . ' 
         SET
@@ -71,11 +71,33 @@ class SanPham
         $stmt->bindParam(':TenSP', $this->TenSP);
         $stmt->bindParam(':HinhAnh', $this->HinhAnh);
 
-        if ($stmt->execute()) {
+        $stmt->execute();
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $this->MaSP = $row['MaSP'];
+
+        //
+
+        $query1 = 'INSERT INTO cuahangsanpham ' . ' 
+        SET
+            MaCH = :MaCH,
+            MaSP = :MaSP,
+            SoLuong = :SoLuong';
+        $stmt1 = $this->conn->prepare($query1);
+
+        $MaCH = htmlspecialchars(strip_tags($MaCH));
+        $this->MaSP = htmlspecialchars(strip_tags($this->MaSP));
+        $SoLuong = htmlspecialchars(strip_tags($SoLuong));
+
+        $stmt1->bindParam(':MaCH', $MaCH);
+        $stmt1->bindParam(':MaSP', $this->MaSP);
+        $stmt1->bindParam(':SoLuong', $SoLuong);
+
+        //
+
+        if ($stmt1->execute()) {
             return true;
         }
-
-        printf("Error: %s.\n", $stmt->error);
 
         return false;
     }
