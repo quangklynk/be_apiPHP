@@ -32,8 +32,11 @@ $sp->NgaySanXuat = $_POST['NgaySanXuat'];
 $sp->TenSP = $_POST['TenSP'];
 $sp->HinhAnh = $fileName;
 
+$SoLuong = $_POST['SoLuong'];
+$MaCH = $_POST['MaCH'];
+
 if ($user->checkShop()) {
-    if ($sp->create()) {
+    if ($sp->create($MaCH, $SoLuong)) {
         $uploadfile->upload($fileName, $tempPath, $fileSize, $path);
         echo json_encode(
             array(
