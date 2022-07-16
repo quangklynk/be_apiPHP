@@ -92,15 +92,13 @@ class CuaHang
         $stmt = $this->conn->prepare($query);
 
         $this->LoaiCuaHang = htmlspecialchars(strip_tags($this->LoaiCuaHang));
-        $this->MaUser = htmlspecialchars(strip_tags($this->MaUser));
         $this->Ten = htmlspecialchars(strip_tags($this->Ten));
-        $this->TrangThai = htmlspecialchars(strip_tags($this->TrangThai));
         $this->MaCH = htmlspecialchars(strip_tags($this->MaCH));
+        $this->HinhAnh = htmlspecialchars(strip_tags($this->HinhAnh));
 
+        $stmt->bindParam(':HinhAnh', $this->HinhAnh);
         $stmt->bindParam(':LoaiCuaHang', $this->LoaiCuaHang);
-        $stmt->bindParam(':MaUser', $this->MaUser);
         $stmt->bindParam(':Ten', $this->Ten);
-        $stmt->bindParam(':TrangThai', $this->TrangThai);
         $stmt->bindParam(':MaCH', $this->MaCH);
         if ($stmt->execute()) {
             return true;

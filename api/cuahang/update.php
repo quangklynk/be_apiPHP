@@ -29,6 +29,7 @@ $ch->HinhAnh = $fileName;
 
 
 if ($ch->update()) {
+    $uploadfile->upload($fileName, $tempPath, $fileSize, $path);
     echo json_encode(
         array(
             'message' => "Sua thanh cong"
