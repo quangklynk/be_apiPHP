@@ -20,16 +20,14 @@ $data = json_decode(file_get_contents("php://input"));
 $ch->MaCH = $data->MaCH;
 $ch->TrangThai = 1;
 
-
-if ($user->checkShop()) {
-    if ($ch->updateStatus()) {
-        echo json_encode(
-            array(
-                'message' => "Sua thanh cong"
-            )
-        );
-    }
+if ($ch->updateStatus()) {
     echo json_encode(
-        array('message' => "Sua that bai")
+        array(
+            'message' => "Sua thanh cong"
+        )
     );
+    die();
 }
+echo json_encode(
+    array('message' => "Sua that bai")
+);

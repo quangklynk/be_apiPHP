@@ -466,8 +466,6 @@ class User
 
         $this->MaUser = $row['MaUser'];
 
-        printf("Error: %s.\n", $stmt->error);
-
         return true;
     }
 
