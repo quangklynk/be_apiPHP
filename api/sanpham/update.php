@@ -17,6 +17,8 @@ $user = new User($db);
 
 $data = json_decode(file_get_contents("php://input"));
 
+$user->token = $data->token;
+
 $sp->GiaSP = $data->GiaSP;
 $sp->MoTa = $data->MoTa;
 $sp->NgaySanXuat = $data->NgaySanXuat;

@@ -3,6 +3,7 @@ class SanPham
 {
     private $conn;
     private $table = 'sanpham';
+    private $table_cuahangsanpham = 'cuahangsanpham';
 
     public $GiaSP;
     public $MaSP;
@@ -128,5 +129,20 @@ class SanPham
 
         printf("Error: %s.\n", $stmt->error);
         return false;
+    }
+
+    public function getAllProductByMaCH($MaCH)
+    {
+        $query = 'SELECT sp.*, chsp.SoLuong FROM ' . $this->table . ' as sp, ' . $this->table_cuahangsanpham . ' as chsp' .' WHERE MaCH = ? and sp.MaSP = chsp.MaSP';
+
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(1, $MaCH);
+
+        if (!$stmt->execute()) {
+            return false;
+        }
+
+        return $stmt;
     }
 }

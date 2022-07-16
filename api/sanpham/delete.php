@@ -13,7 +13,8 @@ $db = $database->connect();
 $sp = new SanPham($db);
 $user = new User($db);
 
-$sp->MaSP = isset($_GET['MaSP']) ? $_GET['MaSP'] : die();
+$sp->MaSP = isset($_GET['MaSP']) ? $_GET['MaSP'] : null;
+$user->token = isset($_GET['token']) ? $_GET['token'] : null;
 
 if ($user->checkShop()) {
     if ($sp->delete()) {

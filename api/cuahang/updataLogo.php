@@ -15,15 +15,15 @@ $db = $database->connect();
 $ch = new CuaHang($db);
 $uploadfile = new UpLoadFile();
 
-$data = json_decode(file_get_contents("php://input"), true);
+// $data = json_decode(file_get_contents("php://input"), true);
 
 $fileName = $_FILES['image']['name'];
 $tempPath = $_FILES['image']['tmp_name'];
 $fileSize = $_FILES['image']['size'];
 $path = "../../storage/image/";
 
-$ch->MaCH = $data->MaCH;
-$ch->HinhAnh = $path;
+$ch->MaCH = $_POST['MaCH'];
+$ch->HinhAnh = $fileName;
 
 
 if ($ch->updateLogo()) {

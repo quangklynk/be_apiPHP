@@ -18,6 +18,7 @@ login: http://localhost:8888/be_apiPHP/api/login/login.php
  read: http://localhost:8888/be_apiPHP/api/sanpham/read.php?token=
  update: http://localhost:8888/be_apiPHP/api/sanpham/update.php
  create: http://localhost:8888/be_apiPHP/api/sanpham/create.php
+ getAllProductByMaCH: http://localhost:8888/be_apiPHP/api/sanpham/getAllProductByMaCH.php?MaCH=
 
   /KhachHang ===================
  delete: http://localhost:8888/be_apiPHP/api/khachhang/delete.php
