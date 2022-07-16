@@ -25,7 +25,6 @@ $user->SDT = $data->SDT;
 $user->GioiTinh = $data->GioiTinh;
 $user->DiaChi = $data->DiaChi;
 
-
 if ($user->register()) {
     $user->getByEmail();
 
