@@ -89,7 +89,7 @@ class Role
 
         $stmt = $this->conn->prepare($query);
 
-        $stmt->bindParam(1, $this->id);
+        $stmt->bindParam(1, $this->MaRole);
 
         if ($stmt->execute()) {
             return true;

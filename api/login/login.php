@@ -21,7 +21,7 @@ $user->MatKhau = $data->MatKhau;
 
 if ($user->checkAccount()) {
     if ($user->checkToken()) {
-        return json_encode(
+        echo json_encode(
             array('message' => "Dang nhap thanh cong!",
                   'token' => $user->token,
                   'data' => $user,)

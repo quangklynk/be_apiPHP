@@ -19,15 +19,17 @@ $data = json_decode(file_get_contents("php://input"));
 
 $user->Email = $data->Email;
 $user->HoTen = $data->HoTen;
-$user->MaRole = 3;
+$user->MaRole = $data->MaRole;
 $user->MatKhau = md5($data->MatKhau);
-$user->SDT = (int)$data->SDT;
+$user->SDT = $data->SDT;
+$user->GioiTinh = $data->GioiTinh;
+$user->DiaChi = $data->DiaChi;
 
 
 if ($user->register()) {
     $user->getByEmail();
 
-    $customer->CMND = 123456785;
+    $customer->CMND = $data->CMND;
     $customer->MaUser = $user->MaUser;
 
     if ($customer->create()) {
