@@ -46,3 +46,4 @@ login: http://localhost:8888/be_apiPHP/api/login/login.php
    /ChiTietDonHang ===================
  create: http://localhost:8888/be_apiPHP/api/chitietdonhang/create.php
  read: http://localhost:8888/be_apiPHP/api/chitietdonhang/read.php
+ ..
