@@ -2,9 +2,9 @@
 class Database
 {
     private $host = 'localhost';
-    private $db_name = 'db_udpt';
+    private $db_name = 'database_DoAnUDPT';
     private $username = 'root';
-    private $password = 'root';
+    private $password = '';
     private $conn;
 
     public function connect()

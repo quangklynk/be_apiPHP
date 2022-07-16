@@ -19,7 +19,7 @@ $data = json_decode(file_get_contents("php://input"));
 
 $user->Email = $data->Email;
 $user->HoTen = $data->HoTen;
-$user->MaRole = 3;
+$user->MaRole = $data->MaRole;
 $user->MatKhau = md5($data->MatKhau);
 $user->SDT = $data->SDT;
 $user->GioiTinh = $data->GioiTinh;
