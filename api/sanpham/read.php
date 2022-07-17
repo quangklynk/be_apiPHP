@@ -29,6 +29,8 @@ if ($num > 0) {
             'NgaySanXuat' => $NgaySanXuat,
             'TenSP' => $TenSP,
             'HinhAnh' => $HinhAnh,
+            'MaCH' => $MaCH,
+            'SoLuong' => $SoLuong,
         );
 
         array_push($sps['data'], $sp_item);

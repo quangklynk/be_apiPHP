@@ -30,13 +30,12 @@ $sp->GiaSP = $_POST['GiaSP'];
 $sp->MoTa = $_POST['MoTa'];
 $sp->NgaySanXuat = $_POST['NgaySanXuat'];
 $sp->TenSP = $_POST['TenSP'];
+$sp->SoLuong = $_POST['SoLuong'];
+$sp->MaCH = $_POST['MaCH'];
 $sp->HinhAnh = $fileName;
 
-$SoLuong = $_POST['SoLuong'];
-$MaCH = $_POST['MaCH'];
-
 if ($user->checkShop()) {
-    if ($sp->create($MaCH, $SoLuong)) {
+    if ($sp->create()) {
         $uploadfile->upload($fileName, $tempPath, $fileSize, $path);
         echo json_encode(
             array(

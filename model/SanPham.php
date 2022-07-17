@@ -3,7 +3,6 @@ class SanPham
 {
     private $conn;
     private $table = 'sanpham';
-    private $table_cuahangsanpham = 'cuahangsanpham';
 
     public $GiaSP;
     public $MaSP;
@@ -11,6 +10,8 @@ class SanPham
     public $NgaySanXuat;
     public $TenSP;
     public $HinhAnh;
+    public $MaCH;
+    public $SoLuong;
 
     public function __construct($db)
     {
@@ -46,9 +47,11 @@ class SanPham
         $this->NgaySanXuat = $row['NgaySanXuat'];
         $this->TenSP = $row['TenSP'];
         $this->HinhAnh = $row['HinhAnh'];
+        $this->MaCH = $row['MaCH'];
+        $this->SoLuong = $row['SoLuong'];
     }
 
-    public function create($MaCH, $SoLuong)
+    public function create()
     {
         $query = 'INSERT INTO ' . $this->table . ' 
         SET
@@ -56,48 +59,31 @@ class SanPham
             MoTa = :MoTa,
             NgaySanXuat = :NgaySanXuat,
             HinhAnh = :HinhAnh,
+            MaCH = :MaCH,
+            SoLuong = :SoLuong,
             TenSP = :TenSP';
         $stmt = $this->conn->prepare($query);
 
         $this->GiaSP = htmlspecialchars(strip_tags($this->GiaSP));
         $this->MoTa = htmlspecialchars(strip_tags($this->MoTa));
         $this->NgaySanXuat = htmlspecialchars(strip_tags($this->NgaySanXuat));
-        $this->TenSP = htmlspecialchars(strip_tags($this->TenSP));
         $this->HinhAnh = htmlspecialchars(strip_tags($this->HinhAnh));
+        $this->MaCH = htmlspecialchars(strip_tags($this->MaCH));
+        $this->SoLuong = htmlspecialchars(strip_tags($this->SoLuong));
+        $this->TenSP = htmlspecialchars(strip_tags($this->TenSP));
 
         $stmt->bindParam(':GiaSP', $this->GiaSP);
         $stmt->bindParam(':MoTa', $this->MoTa);
         $stmt->bindParam(':NgaySanXuat', $this->NgaySanXuat);
-        $stmt->bindParam(':TenSP', $this->TenSP);
         $stmt->bindParam(':HinhAnh', $this->HinhAnh);
+        $stmt->bindParam(':MaCH', $this->MaCH);
+        $stmt->bindParam(':SoLuong', $this->SoLuong);
+        $stmt->bindParam(':TenSP', $this->TenSP);
 
-        $stmt->execute();
-
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        $this->MaSP = $row['MaSP'];
-
-        //
-
-        $query1 = 'INSERT INTO cuahangsanpham ' . ' 
-        SET
-            MaCH = :MaCH,
-            MaSP = :MaSP,
-            SoLuong = :SoLuong';
-        $stmt1 = $this->conn->prepare($query1);
-
-        $MaCH = htmlspecialchars(strip_tags($MaCH));
-        $this->MaSP = htmlspecialchars(strip_tags($this->MaSP));
-        $SoLuong = htmlspecialchars(strip_tags($SoLuong));
-
-        $stmt1->bindParam(':MaCH', $MaCH);
-        $stmt1->bindParam(':MaSP', $this->MaSP);
-        $stmt1->bindParam(':SoLuong', $SoLuong);
-
-        //
-
-        if ($stmt1->execute()) {
+        if ($stmt->execute()) {
             return true;
         }
+        printf("Error: %s.\n", $stmt->error);
 
         return false;
     }
@@ -153,17 +139,14 @@ class SanPham
         return false;
     }
 
-    public function getAllProductByMaCH($MaCH)
+    public function getAllProductByMaCH()
     {
-        $query = 'SELECT sp.*, chsp.SoLuong FROM ' . $this->table . ' as sp, ' . $this->table_cuahangsanpham . ' as chsp' .' WHERE MaCH = ? and sp.MaSP = chsp.MaSP';
+        $query = 'SELECT * FROM ' . $this->table . ' WHERE MaCH = ?';
 
         $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $this->MaCH);
 
-        $stmt->bindParam(1, $MaCH);
-
-        if (!$stmt->execute()) {
-            return false;
-        }
+        $stmt->execute();
 
         return $stmt;
     }
