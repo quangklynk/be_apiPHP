@@ -15,13 +15,21 @@ $dh = new DonHang($db);
 
 $data = json_decode(file_get_contents("php://input"));
 
-$dh->Ten = $data->Ten;
+$dh->DiaChi = $data->DiaChi;
+$dh->DienThoai = $data->DienThoai;
+$dh->GhiChu = $data->GhiChu;
+$dh->MaDV = $data->MaDV;
+$dh->SoLuong = $data->SoLuong;
+$dh->TenKH = $data->TenKH;
+$dh->ThoiGianBD = $data->ThoiGianBD;
+$dh->ThoiGianKT = $data->ThoiGianKT;
 
 
 if ($dh->create()) { // tra ma dang ky
     echo json_encode(
         array(
-            'message' => "Tao thanh cong"
+            'message' => "Tao thanh cong",
+            'MaDangKy' => $dh->MaDangKy
         )
     );
 } else {
