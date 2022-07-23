@@ -87,7 +87,6 @@ class DonHang
             TenKH = :TenKH,
             ThanhTien = :ThanhTien,
             ThoiGianBD = :ThoiGianBD,
-            ThoiGianKT = :ThoiGianKT,;
             TrangThai = :TrangThai';
         $stmt = $this->conn->prepare($query);
 
@@ -112,7 +111,6 @@ class DonHang
         $this->TenKH = htmlspecialchars(strip_tags($this->TenKH));
         $this->ThanhTien = htmlspecialchars(strip_tags($thanhTien));
         $this->ThoiGianBD = htmlspecialchars(strip_tags($this->ThoiGianBD));
-        $this->ThoiGianKT = htmlspecialchars(strip_tags($this->ThoiGianKT));
         $this->TrangThai = htmlspecialchars(strip_tags($trangThai));
 
         $stmt->bindParam(':DiaChi', $this->DiaChi);
@@ -125,7 +123,6 @@ class DonHang
         $stmt->bindParam(':TenKH', $this->TenKH);
         $stmt->bindParam(':ThanhTien', $thanhTien);
         $stmt->bindParam(':ThoiGianBD', $this->ThoiGianBD);
-        $stmt->bindParam(':ThoiGianKT', $this->ThoiGianKT);
         $stmt->bindParam(':TrangThai', $trangThai);
 
         if ($stmt->execute()) {

@@ -22,7 +22,6 @@ $dh->MaDV = $data->MaDV;
 $dh->SoLuong = $data->SoLuong;
 $dh->TenKH = $data->TenKH;
 $dh->ThoiGianBD = $data->ThoiGianBD;
-$dh->ThoiGianKT = $data->ThoiGianKT;
 
 
 if ($dh->create()) { // tra ma dang ky
