@@ -1,5 +1,5 @@
 <?php
-class SanPham
+class DichVu
 {
     private $conn;
     private $table = 'dichvu';

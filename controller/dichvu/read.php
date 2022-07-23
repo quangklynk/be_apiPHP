@@ -9,29 +9,30 @@ include_once '../../model/DichVu.php';
 $database = new Database();
 $db = $database->connect();
 
-$kh = new DichVu($db);
+$dv = new DichVu($db);
 
-$result = $kh->read();
+$result = $dv->read();
 
 $num = $result->rowCount();
 
 if ($num > 0) {
-    $khs = array();
-    $khs['data'] = array();
+    $dvs = array();
+    $dvs['data'] = array();
 
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
 
-        $kh_item = array(
-            'CMND' => $CMND,
-            'MaKH' => $MaKH,
-            'MaUser' => $MaUser,
+        $dv_item = array(
+            'DonGia' => $DonGia,
+            'LoaiDV' => $LoaiDV,
+            'MaDV' => $MaDV,
+            'TenDV' => $TenDV,
         );
 
-        array_push($khs['data'], $kh_item);
+        array_push($dvs['data'], $dv_item);
     }
 
-    echo json_encode($khs);
+    echo json_encode($dvs);
 } else {
     echo json_encode(
         array('message' => 'No Posts Found')
