@@ -1,5 +1,5 @@
 <?php
-class User
+class TaiKhoan
 {
     private $conn;
     private $table = 'taikhoan';
