@@ -23,23 +23,19 @@ class DichVu
         return $stmt;
     }
 
-    // public function read_item()
-    // {
-    //     $query = 'SELECT * FROM ' . $this->table . ' WHERE MaSP = ? LIMIT 0,1';
-    //     $stmt = $this->conn->prepare($query);
-    //     $stmt->bindParam(1, $this->MaSP);
-    //     $stmt->execute();
-    //     $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    public function read_item()
+    {
+        $query = 'SELECT * FROM ' . $this->table . ' WHERE MaDV = ? LIMIT 0,1';
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $this->MaDV);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    //     $this->GiaSP = $row['GiaSP'];
-    //     $this->MaSP = $row['MaSP'];
-    //     $this->MoTa = $row['MoTa'];
-    //     $this->NgaySanXuat = $row['NgaySanXuat'];
-    //     $this->TenSP = $row['TenSP'];
-    //     $this->HinhAnh = $row['HinhAnh'];
-    //     $this->MaCH = $row['MaCH'];
-    //     $this->SoLuong = $row['SoLuong'];
-    // }
+        $this->DonGia = $row['DonGia'];
+        $this->LoaiDV = $row['LoaiDV'];
+        $this->MaDV = $row['MaDV'];
+        $this->TenDV = $row['TenDV'];
+    }
 
     // public function create()
     // {
