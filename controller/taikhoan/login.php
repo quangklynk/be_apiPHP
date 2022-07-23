@@ -6,30 +6,25 @@ header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
 
 include_once '../../config/Database.php';
-include_once '../../model/User.php';
+include_once '../../model/TaiKhoan.php';
 
 $database = new Database();
 $db = $database->connect();
 
-$user = new User($db);
+$tk = new TaiKhoan($db);
 
 $data = json_decode(file_get_contents("php://input"));
 
-$user->AnhChanDung = $data->AnhChanDung;
-$user->DiaChi = $data->DiaChi;
-$user->HoTen = $data->HoTen;
-$user->Ten = $data->Ten;
-$user->MaUser = $data->MaUser;
+$tk->TenTK = $data->SDT;
+$tk->MatKhau = $data->MatKhau;
 
 
-if ($user->update()) {
-    echo json_encode(
-        array(
-            'message' => "Sua thanh cong"
-        )
+if ($tk->login()) {
+    return json_encode(
+        array('message' => "Dang nhap thanh cong!")
     );
 } else {
-    echo json_encode(
-        array('message' => "Sua that bai")
+    return json_encode(
+        array('message' => "Sai thong tin dang nhap, hoac chua dang ky!")
     );
-}
+} 
