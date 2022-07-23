@@ -237,7 +237,7 @@ class DonHang
             }
 
             return false;
-        } elseif ($this->TrangThai == 'DANGTIENHANH') {
+        } elseif ($this->TrangThai == 'DANGTIENHA') {
             $query = 'UPDATE ' . $this->table . ' 
                 SET
                     TrangThai = :TrangThai,
