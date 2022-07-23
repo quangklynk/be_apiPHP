@@ -2,9 +2,9 @@
 class Database
 {
     private $host = 'localhost';
-    private $db_name = 'database_DoAnUDPT';
+    private $db_name = 'DichVuDB';
     private $username = 'root';
-    private $password = '';
+    private $password = 'root';
     private $conn;
 
     public function connect()
