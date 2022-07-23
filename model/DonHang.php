@@ -138,7 +138,6 @@ class DonHang
             $query = 'UPDATE ' . $this->table . ' 
                 SET
                     DienThoai = :DienThoai,
-                    ThoiGianBD = :ThoiGianBD,
                     GhiChu = :GhiChu,
                     DiaChi = :DiaChi
                 WHERE
@@ -147,13 +146,11 @@ class DonHang
             $stmt = $this->conn->prepare($query);
 
             $this->DienThoai = htmlspecialchars(strip_tags($this->DienThoai));
-            $this->ThoiGianBD = htmlspecialchars(strip_tags($this->ThoiGianBD));
             $this->DiaChi = htmlspecialchars(strip_tags($this->DiaChi));
             $this->GhiChu = htmlspecialchars(strip_tags($this->GhiChu));
             $this->MaDangKy = htmlspecialchars(strip_tags($this->MaDangKy));
 
             $stmt->bindParam(':DienThoai', $this->DienThoai);
-            $stmt->bindParam(':ThoiGianBD', $this->ThoiGianBD);
             $stmt->bindParam(':GhiChu', $this->GhiChu);
             $stmt->bindParam(':DiaChi', $this->DiaChi);
             $stmt->bindParam(':MaDangKy', $this->MaDangKy);

@@ -16,7 +16,6 @@ $dh = new DonHang($db);
 $data = json_decode(file_get_contents("php://input"));
 
 $dh->DienThoai = $data->DienThoai;
-$dh->ThoiGianBD = $data->ThoiGianBD;
 $dh->GhiChu = $data->GhiChu;
 $dh->DiaChi = $data->DiaChi;
 $dh->MaDangKy = $data->MaDangKy;
