@@ -19,6 +19,7 @@ $dh->DienThoai = $data->DienThoai;
 $dh->GhiChu = $data->GhiChu;
 $dh->DiaChi = $data->DiaChi;
 $dh->MaDangKy = $data->MaDangKy;
+$dh->TrangThai = $data->TrangThai;
 
 
 if ($dh->updateByCustomer()) {
