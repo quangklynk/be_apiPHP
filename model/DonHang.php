@@ -35,9 +35,9 @@ class DonHang
 
     public function read_item()
     {
-        $query = 'SELECT * FROM ' . $this->table . ' WHERE MaDH = ? LIMIT 0,1';
+        $query = 'SELECT * FROM ' . $this->table . ' WHERE MaDangKy = ? LIMIT 0,1';
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(1, $this->MaDH);
+        $stmt->bindParam(1, $this->MaDangKy);
         $stmt->execute();
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -144,6 +144,7 @@ class DonHang
                 SET
                     DienThoai = :DienThoai,
                     ThoiGianBD = :ThoiGianBD,
+                    GhiChu = :GhiChu,
                     DiaChi = :DiaChi
                 WHERE
                     MaDH = :MaDH';
@@ -153,10 +154,12 @@ class DonHang
             $this->DienThoai = htmlspecialchars(strip_tags($this->DienThoai));
             $this->ThoiGianBD = htmlspecialchars(strip_tags($this->ThoiGianBD));
             $this->DiaChi = htmlspecialchars(strip_tags($this->DiaChi));
+            $this->GhiChu = htmlspecialchars(strip_tags($this->GhiChu));
             $this->MaDH = htmlspecialchars(strip_tags($this->MaDH));
 
             $stmt->bindParam(':DienThoai', $this->DienThoai);
             $stmt->bindParam(':ThoiGianBD', $this->ThoiGianBD);
+            $stmt->bindParam(':GhiChu', $this->GhiChu);
             $stmt->bindParam(':DiaChi', $this->DiaChi);
             $stmt->bindParam(':MaDH', $this->MaDH);
             if ($stmt->execute()) {

@@ -18,7 +18,7 @@ $data = json_decode(file_get_contents("php://input"));
 $dh->Ten = $data->Ten;
 
 
-if ($dh->create()) {
+if ($dh->create()) { // tra ma dang ky
     echo json_encode(
         array(
             'message' => "Tao thanh cong"
