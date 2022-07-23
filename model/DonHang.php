@@ -145,7 +145,7 @@ class DonHang
                     GhiChu = :GhiChu,
                     DiaChi = :DiaChi
                 WHERE
-                    MaDH = :MaDH';
+                    MaDangKy = :MaDangKy';
 
             $stmt = $this->conn->prepare($query);
 
@@ -153,13 +153,13 @@ class DonHang
             $this->ThoiGianBD = htmlspecialchars(strip_tags($this->ThoiGianBD));
             $this->DiaChi = htmlspecialchars(strip_tags($this->DiaChi));
             $this->GhiChu = htmlspecialchars(strip_tags($this->GhiChu));
-            $this->MaDH = htmlspecialchars(strip_tags($this->MaDH));
+            $this->MaDangKy = htmlspecialchars(strip_tags($this->MaDangKy));
 
             $stmt->bindParam(':DienThoai', $this->DienThoai);
             $stmt->bindParam(':ThoiGianBD', $this->ThoiGianBD);
             $stmt->bindParam(':GhiChu', $this->GhiChu);
             $stmt->bindParam(':DiaChi', $this->DiaChi);
-            $stmt->bindParam(':MaDH', $this->MaDH);
+            $stmt->bindParam(':MaDangKy', $this->MaDangKy);
             if ($stmt->execute()) {
                 return true;
             }
@@ -170,24 +170,24 @@ class DonHang
         return false;
     }
 
-    public function cancelByCustomerAndAdmin() /// id
+    public function cancelByCustomerAndAdmin() /// 
     {
         if ($this->TrangThai == 'DAKHOITAO') {
             $query = 'UPDATE ' . $this->table . ' 
                 SET
                     TrangThai = :TrangThai
                 WHERE
-                    MaDH = :MaDH';
+                    MaDangKy = :MaDangKy';
 
             $stmt = $this->conn->prepare($query);
 
             $status = 'HUY';
 
             $this->TrangThai = htmlspecialchars(strip_tags($status));
-            $this->MaDH = htmlspecialchars(strip_tags($this->MaDH));
+            $this->MaDangKy = htmlspecialchars(strip_tags($this->MaDangKy));
 
             $stmt->bindParam(':TrangThai', $status);
-            $stmt->bindParam(':MaDH', $this->MaDH);
+            $stmt->bindParam(':MaDangKy', $this->MaDangKy);
             if ($stmt->execute()) {
                 return true;
             }
@@ -200,24 +200,73 @@ class DonHang
 
     public function updateStatuByAdmin() // id, trang thai (if HOANTAT update thoi gian ket thuc)
     {
-        $query = 'UPDATE ' . $this->table . ' 
-        SET
-            TrangThai = :TrangThai
-        WHERE
-            MaDH = :MaDH';
 
-        $stmt = $this->conn->prepare($query);
+        if ($this->TrangThai == 'DAKHOITAO') {
+            $query = 'UPDATE ' . $this->table . ' 
+                SET
+                    TrangThai = :TrangThai
+                WHERE
+                    MaDangKy = :MaDangKy';
 
-        $this->TrangThai = htmlspecialchars(strip_tags($this->TrangThai));
-        $this->MaDH = htmlspecialchars(strip_tags($this->MaDH));
+            $stmt = $this->conn->prepare($query);
 
-        $stmt->bindParam(':TrangThai', $this->TrangThai);
-        $stmt->bindParam(':MaDH', $this->MaDH);
-        if ($stmt->execute()) {
-            return true;
+            $status = 'DAXACNHAN';
+
+            $this->TrangThai = htmlspecialchars(strip_tags($status));
+            $this->MaDangKy = htmlspecialchars(strip_tags($this->MaDangKy));
+
+            $stmt->bindParam(':TrangThai', $status);
+            $stmt->bindParam(':MaDangKy', $this->MaDangKy);
+            if ($stmt->execute()) {
+                return true;
+            }
+
+            return false;
+        } elseif ($this->TrangThai == 'DAXACNHAN') {
+            $query = 'UPDATE ' . $this->table . ' 
+                SET
+                    TrangThai = :TrangThai
+                WHERE
+                    MaDangKy = :MaDangKy';
+
+            $stmt = $this->conn->prepare($query);
+
+            $status = 'DANGTIENHANH';
+
+            $this->TrangThai = htmlspecialchars(strip_tags($status));
+            $this->MaDangKy = htmlspecialchars(strip_tags($this->MaDangKy));
+
+            $stmt->bindParam(':TrangThai', $status);
+            $stmt->bindParam(':MaDangKy', $this->MaDangKy);
+            if ($stmt->execute()) {
+                return true;
+            }
+
+            return false;
+        } elseif ($this->TrangThai == 'DANGTIENHANH') {
+            $query = 'UPDATE ' . $this->table . ' 
+                SET
+                    TrangThai = :TrangThai,
+                    ThoiGianKT = :ThoiGianKT
+                WHERE
+                    MaDangKy = :MaDangKy';
+
+            $stmt = $this->conn->prepare($query);
+
+            $status = 'HOANTAT';
+            $timeEnd = date("Y.m.d h:i:sa");
+
+            $this->TrangThai = htmlspecialchars(strip_tags($status));
+            $this->ThoiGianKT = htmlspecialchars(strip_tags($timeEnd));
+            $this->MaDangKy = htmlspecialchars(strip_tags($this->MaDangKy));
+
+            $stmt->bindParam(':TrangThai', $status);
+            $stmt->bindParam(':ThoiGianKT', $timeEnd);
+            $stmt->bindParam(':MaDangKy', $this->MaDangKy);
+            if ($stmt->execute()) {
+                return true;
+            }
         }
-
-        printf("Error: %s.\n", $stmt->error);
 
         return false;
     }
